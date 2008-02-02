@@ -1,0 +1,84 @@
+BNS: Boolean Network Simulation.
+Author: Benelli Marco <mbenelli@yahoo.com>
+
+DESCRIPTION
+
+BNS do some simulation with Random Boolean Networks.
+It's able to build networks, evolve them, find attractors in syncronous or
+asyncronous evolution.
+
+Bns has a very rought user interface, if you want to use it directly see USAGE
+section below.
+
+Actually is not documented at all (except some  comments in source code),
+I hope I'll find time to write some documentation.
+Anyway, it could be usefull for someone who is writing similar software.
+ 
+The main executable is written in C, the simulation engine can be compiled as
+a library (see Makefile).
+
+There are also some guile source that do some tasks: decimation, attractors
+statistics, and similarity (see source code for detail).
+For those who don't know guile/scheme, the most useful functions are avaible
+via scripts in directory SCRIPT, they can access only a a few function and
+_MUST_ be edited to add networks and attractors paths.
+The best way to access guile function is start an interpreter and load needed
+files.
+
+INSTALLATION
+
+C:
+It's strongly reccomended to use GSL library, for random number generator.
+If you don't want to install GSL you had to modify "Makefile", erasing
+USE_GSL and "gsl-config". 
+Enter "c" subdirectory and run "./make". It build an exectutable called "bns".
+To build a library type "./make libbns.so".
+
+Guile:
+"decimate.scm", "similarity.scm" and "attractors-stats.scm" contains
+interface to all guile functions. Start guile and load one or more of them.
+
+USAGE
+
+This is the weakest part of bns. It was written only to simple task, it should
+be rewritten from scratch (I hope I'll find time to do it).
+
+You must set enviroment variable BNS_PATH.
+The directory in BNS_PATH must have some subdirs called <N>_<K>, where N is
+size of nets and K its connectivity.
+For example if you work with N=128 and K=2 ther must be a directory called
+$BNS_PATH/128_2/ and bns write or read file from here.
+If you work with differents samples of nets, you had to set BNS_PATH before
+each run.
+
+Examples:
+
+Build net in /home/user/net/32_2/ :
+
+$ export BNS_PATH=/home/user/net/32_2/
+$ ./bns -c -n 32 -k 2 -p 0.5 -s 100 -ar 1
+
+Search attractor on nets in /home/user/net/32_2/
+
+$ ./bns -r -n 32 -k 2 -i 100 -s 100 -fn 8 -w 300
+
+Build net in /home/user/net/128_2/ and search attractors:
+
+$ export BNS_PATH=/home/user/net/128_2/
+$ ./bns -c -n 128 -k 2 -p 0.5 -s 100 -ar 1
+$ ./bns -r -n 128 -k 2 -i 100 -s 100 -fn 8 -w 300
+
+Build net in /home/user/net/p06/32_2/ and search attractors:
+
+$ export BNS_PATH=/home/user/net/p06/32_2/
+$ ./bns -c -n 32 -k 2 -p 0.6 -s 100 -ar 1
+$ ./bns -r -n 32 -k 2 -i 100 -s 100 -fn 8 -w 300
+
+Nets name are builded from N-K parameters and an id, Example: 128_2_000
+File with extension ".top" contains net's topology, file with extension ".rul"
+countains boolean rules, file with extension ".scm" contain attractors in
+scheme source code format, they are automatically readed by guile functions.
+
+Guile functions's arguments are made of entire path and N-K prefix.
+Example: /home/user/net/p06/32_2/32_2_ or /home/user/net/p06/32_2/32_2_0
+

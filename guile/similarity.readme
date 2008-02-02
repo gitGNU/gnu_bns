@@ -1,0 +1,20 @@
+Legenda for output from similarity-stats-map-run:
+
+Id:	net identifier;
+nc:	number of cyclic attractors
+nl:	number of loose attractors
+eq:	number of pairs cycle-loose tha are equal
+dis:	number of disjoint pairs cycle-loose
+pc:	cycles average size (period)
+ds:	standard deviation of size
+pl:	looses average size
+ds:	standard deviation of size
+bc:	cyles's basins average size
+ds:	standard deviation of basins's size
+bl:	looses's basins average size
+ds:	standard deviation of basins's size
+b.dis:	basin's distance
+fnc:	number of floating nodes (cycles)
+ds:	standard deviation of number of floating nodes
+fnl:	number of floating nodes (looses)
+ds:	standard deviation of number of floating nodes

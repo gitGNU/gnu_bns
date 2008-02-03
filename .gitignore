@@ -1,0 +1,5 @@
+# Sandbox directory
+sandbox
+# Vim's swap files
+*.swp
+

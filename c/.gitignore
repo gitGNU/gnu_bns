@@ -1,0 +1,6 @@
+# Ignore objects
+*.o
+*.so
+# Ignore main executable
+bns
+ 
